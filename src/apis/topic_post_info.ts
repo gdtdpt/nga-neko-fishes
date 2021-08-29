@@ -1,5 +1,5 @@
 import { request } from '.';
-import { NGAResponse, ObjectArray, PostResponse, SubTopic, Topic, TopicCategory, TopicCategoryContent, TopicCategoryContentItem, TopicResponse } from '../models';
+import { NGAResponse, ObjectArray, Post, PostResponse, SubTopic, Topic, TopicCategory, TopicCategoryContent, TopicCategoryContentItem, TopicResponse } from '../models';
 
 
 
@@ -9,14 +9,45 @@ import { NGAResponse, ObjectArray, PostResponse, SubTopic, Topic, TopicCategory,
  */
 export const checkCookie = () => {
   return request<PostResponse>(`https://ngabbs.com/thread.php?fid=-7&lite=js`);
+};
+
+/**
+ * 拿具体板块的帖子列表
+ * @param fid 板块的fid
+ * @returns 返回NGA的原始数据Promise
+ */
+const fetchPosts = (fid: number) => {
+  return request<PostResponse>(`https://ngabbs.com/thread.php?fid=${fid}&lite=js`);
+};
+
+/**
+ * 拿具体板块的帖子列表
+ * @param fid 板块的fid
+ * @returns 返回处理过的规范数据Promise
+ */
+export const fetchPostList = (fid: number) => {
+  return fetchPosts(fid)
+    .then(res => composePost(res as PostResponse));
+};
+
+function composePost(response: PostResponse): Post[] {
+  const postList: Post[] = [];
+  const postRecords = response?.data?.__T;
+  if (postRecords && Object.keys(postRecords).length) {
+    for (const tKey of Object.keys(postRecords)) {
+      const post = postRecords[tKey];
+      postList.push(post);
+    }
+  }
+  return postList;
 }
 
 /**
  * 拿板块列表
  */
-export const fetchTopics = (): Promise<NGAResponse<TopicResponse>> => {
+const fetchTopics = (): Promise<NGAResponse<TopicResponse>> => {
   return request<TopicResponse>(`https://img4.nga.178.com/proxy/cache_attach/bbs_index_data.js?4226406`);
-}
+};
 
 export const fetchTopicTree = (): Promise<Topic[]> => {
   return fetchTopics()
@@ -24,14 +55,14 @@ export const fetchTopicTree = (): Promise<Topic[]> => {
       const topicTrees: Topic[] = [];
       // remove follow and new properties
       const { follow, new: newTopic, esport, fast, ...topics } = (res as TopicResponse).data['0'].all;
-      for (const key of Object.keys(topics) ) {
+      for (const key of Object.keys(topics)) {
         const topicInfo: TopicCategory = topics[key];
         if (topicInfo) {
           const topic: Topic = {
             id: topicInfo.id,
             name: topicInfo.name,
             children: []
-          }
+          };
           if (topicInfo.content && Object.keys(topicInfo.content).length) {
             const subTopics = composeSubTopic(topicInfo.content);
             topic.children = subTopics || [];
@@ -41,9 +72,9 @@ export const fetchTopicTree = (): Promise<Topic[]> => {
       }
       return topicTrees;
     });
-}
+};
 
-export function composeSubTopic(subTopics: ObjectArray<TopicCategoryContent>): SubTopic[] {
+function composeSubTopic(subTopics: ObjectArray<TopicCategoryContent>): SubTopic[] {
   const subTopicList: SubTopic[] = [];
   const generalName = `综合(无名分类)`;
   let generalIndex = 0;
@@ -51,7 +82,7 @@ export function composeSubTopic(subTopics: ObjectArray<TopicCategoryContent>): S
     if (generalIndex) {
       return `${generalName}${generalIndex++}`
     } else {
-      generalIndex+=2;
+      generalIndex += 2;
       return generalName;
     }
   }
@@ -68,7 +99,7 @@ export function composeSubTopic(subTopics: ObjectArray<TopicCategoryContent>): S
   return subTopicList;
 }
 
-export function composeTopicCategoryLeaf(topicLeafs: ObjectArray<TopicCategoryContentItem>): TopicCategoryContentItem[] {
+function composeTopicCategoryLeaf(topicLeafs: ObjectArray<TopicCategoryContentItem>): TopicCategoryContentItem[] {
   const leafs: TopicCategoryContentItem[] = [];
   for (const leafKey of Object.keys(topicLeafs)) {
     const leafInfo = topicLeafs[leafKey];

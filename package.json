@@ -34,6 +34,10 @@
         "command": "posts.refresh",
         "title": "刷新帖子列表",
         "icon": "$(refresh)"
+      },
+      {
+        "command": "topic.select",
+        "title": "打开"
       }
 		],
     "configuration": {
@@ -86,6 +90,12 @@
 			}
 		],
     "menus": {
+      "commandPalette": [
+        {
+          "command": "topic.select",
+          "when": "false"
+        }
+      ],
       "view/title": [
         {
           "command": "topic.refresh",
@@ -96,6 +106,13 @@
           "command": "posts.refresh",
           "when": "view == posts",
           "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "topic.select",
+          "when": "view == topics && viewItem == topicCategoryNode",
+          "group": "navigation@1"
         }
       ]
     }

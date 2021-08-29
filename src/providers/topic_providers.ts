@@ -1,21 +1,26 @@
-import { commands, Event, EventEmitter, TreeDataProvider, TreeItem, TreeItemCollapsibleState } from 'vscode';
+import { CancellationToken, commands, Event, EventEmitter, ProviderResult, TreeDataProvider, TreeItem, TreeItemCollapsibleState } from 'vscode';
 import { fetchTopicTree } from '../apis';
 import { SubTopic, Topic, TopicCategoryContentItem } from '../models';
 import { Persistence } from '../utils';
+import { PostProvider } from './post_providers';
 
 // type TopicTreeNode = TopicNode[] | SubTopicNode[] | TopicCategoryNode[]
 
 export class TopicProvider implements TreeDataProvider<TreeItem> {
 
-  public readonly REFRESH_COMMAND = 'topic.refresh';
+  public static readonly REFRESH_COMMAND = 'topic.refresh';
+  public static readonly TOPIC_SELECT = 'topic.select';
   private _onDidChangeTreeData: EventEmitter<TreeItem | null> = new EventEmitter<TreeItem | null>();
   readonly onDidChangeTreeData: Event<TreeItem | null> = this._onDidChangeTreeData.event;
   topics: TopicNode[] = [];
+  postProvider: PostProvider;
 
-  constructor() {
+  constructor(postProvider: PostProvider) {
+    this.postProvider = postProvider;
     const { subscriptions } = Persistence.context;
     if (subscriptions) {
-      subscriptions.push(commands.registerCommand(this.REFRESH_COMMAND, this.refresh, this));
+      subscriptions.push(commands.registerCommand(TopicProvider.REFRESH_COMMAND, this.refresh, this));
+      subscriptions.push(commands.registerCommand(TopicProvider.TOPIC_SELECT, this.selectTopic, this));
     }
   }
 
@@ -47,6 +52,14 @@ export class TopicProvider implements TreeDataProvider<TreeItem> {
   public refresh() {
     this.topics = [];
     this._onDidChangeTreeData.fire(null);
+  }
+
+  private selectTopic(node: TopicCategoryNode) {
+    this.postProvider.category = node.category;
+    if (node.category.fid === -7) { // 永远的大漩涡
+      this.postProvider.category.name = '大漩涡';
+    }
+    this.postProvider.refresh();
   }
 
   private buildTreeNodes(topics: Topic[]): TopicNode[] {
@@ -106,10 +119,16 @@ export class SubTopicNode extends TreeItem {
 }
 
 export class TopicCategoryNode extends TreeItem {
-  fid: number;
+  category: TopicCategoryContentItem;
   constructor(category: TopicCategoryContentItem) {
     super(category.name);
-    this.fid = category.fid;
+    this.category = category;
     this.description = `${category.fid}`;
+    this.contextValue = 'topicCategoryNode';
+    this.command = {
+      title: '打开',
+      command: TopicProvider.TOPIC_SELECT,
+      arguments: [this]
+    }
   }
 }

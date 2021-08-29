@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { fetchTopics, fetchTopicTree } from './apis';
+import { fetchPostList } from './apis';
 import { NGA_LOGIN_COMMAND } from './models';
 import { LoginPanel } from './panels';
 import { PostProvider } from './providers/post_providers';
@@ -11,18 +11,18 @@ import { Persistence } from './utils';
 export function activate(context: vscode.ExtensionContext) {
   Persistence.init(context);
   let disposable = vscode.commands.registerCommand('extension.helloWorld', () => {
-    fetchTopicTree().then(res => {
+    fetchPostList(-7).then(res => {
       console.log(`test res: `, res);
     });
   });
   context.subscriptions.push(disposable);
-  // topics
-  const topicTree = vscode.window.registerTreeDataProvider('topics', new TopicProvider());
-  context.subscriptions.push(topicTree);
   // posts
   const postProvider = new PostProvider();
   const postsView = vscode.window.createTreeView('posts', { treeDataProvider: postProvider });
   postProvider.setTreeView(postsView);
+  // topics
+  const topicTree = vscode.window.registerTreeDataProvider('topics', new TopicProvider(postProvider));
+  context.subscriptions.push(topicTree);
   // login panel
   const loginCommand = vscode.commands.registerCommand(NGA_LOGIN_COMMAND, () => LoginPanel.init());
   context.subscriptions.push(loginCommand);

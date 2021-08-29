@@ -1,8 +1,9 @@
 export * from './login_page';
 export * from './topic';
+export * from './post';
 
 export type Optional<T> = T | undefined;
-export type ObjectArray<T> = { [key: string]: T }
+export type ObjectArray<T> = { [key: string]: T };
 export type NGAResponseError = {
   error: ObjectArray<string | number>,
   data: {
@@ -12,6 +13,6 @@ export type NGAResponseError = {
   time: number
 };
 
-export type NGAResponse<T> = T | NGAResponseError
+export type NGAResponse<T> = T | NGAResponseError;
 
 export const NGA_LOGIN_COMMAND = 'nga.login';
