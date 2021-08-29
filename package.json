@@ -1,0 +1,124 @@
+{
+	"name": "nga-neko-fishes",
+	"displayName": "NGA Neko Fishes",
+	"description": "relax",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.39.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:extension.helloWorld",
+		"onCommand:nga.login",
+    "onView:topics"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "extension.helloWorld",
+				"title": "Hello World"
+			},
+			{
+				"command": "nga.login",
+				"title": "登录NGA"
+			},
+      {
+        "command": "topic.refresh",
+        "title": "重载板块信息",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "posts.refresh",
+        "title": "刷新帖子列表",
+        "icon": "$(refresh)"
+      }
+		],
+    "configuration": {
+      "title": "NGA摸鱼插件",
+      "properties": {
+        "nga.cookie": {
+          "type": "string",
+          "scope": "resource",
+          "description": "登录NGA后获得的Cookie"
+        }
+      }
+    },
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "nga",
+					"title": "NGA",
+					"icon": "resources/nga.svg"
+				}
+			]
+		},
+		"views": {
+			"nga": [
+				{
+					"id": "topics",
+					"name": "板块列表"
+				},
+        {
+          "id": "posts",
+          "name": "主题列表",
+          "visibility": "collapsed"
+        }
+			]
+		},
+		"viewsWelcome": [
+			{
+				"view": "topics",
+        "when": "config.nga.cookie == null || config.nga.cookie == ''",
+				"contents": "请先登录\n[登录](command:nga.login)"
+			},
+      {
+				"view": "posts",
+        "when": "config.nga.cookie == null || config.nga.cookie == ''",
+				"contents": "请先登录\n[登录](command:nga.login)"
+			},
+      {
+				"view": "posts",
+        "when": "config.nga.cookie != null && config.nga.cookie != ''",
+				"contents": "请先选择板块"
+			}
+		],
+    "menus": {
+      "view/title": [
+        {
+          "command": "topic.refresh",
+          "when": "view == topics",
+          "group": "navigation"
+        },
+        {
+          "command": "posts.refresh",
+          "when": "view == posts",
+          "group": "navigation"
+        }
+      ]
+    }
+	},
+	"scripts": {
+		"vscode:prepublish": "yarn run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "yarn run compile",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.1",
+		"@types/mocha": "^5.2.7",
+		"@types/node": "^12.11.7",
+		"@types/vscode": "^1.39.0",
+		"glob": "^7.1.5",
+		"mocha": "^6.2.2",
+		"tslint": "^5.20.0",
+		"typescript": "^3.6.4",
+		"vscode-test": "^1.2.2"
+	},
+	"dependencies": {
+		"iconv-lite": "^0.6.3"
+	}
+}

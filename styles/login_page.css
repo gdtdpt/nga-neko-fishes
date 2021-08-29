@@ -1,0 +1,61 @@
+body {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  height: 100%;
+}
+
+body > * {
+  padding: .3em;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.login-tips-wrapper {
+  flex-grow: 6;
+  position: relative;
+}
+
+.login-tips-wrapper .login-tips {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+}
+
+.textarea-region {
+  flex-grow: 1;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+}
+.textarea-region textarea {
+  border-radius: .5em;
+  padding: .3em;
+  border: none;
+  width: 100%;
+  resize: none;
+}
+
+.btn-region {
+  text-align: center;
+}
+.btn-region button {
+  width: 80%;
+  border-radius: .5em;
+  background-color:#B8926A;
+  color: white;
+  font-size: 2em;
+}
+
+.btn-region button:hover {
+  opacity: .8;
+}
+
+.relax {
+  display: inline-block;
+  font-size: 2em;
+  color: #B8926A;
+}
