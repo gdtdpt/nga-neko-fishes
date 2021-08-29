@@ -32,7 +32,7 @@ export class PostProvider implements TreeDataProvider<TreeItem> {
     return element;
   }
 
-  async getChildren(element?: TreeItem): Promise<TreeItem[]> {
+  async getChildren(_?: TreeItem): Promise<TreeItem[]> {
     if (!this.category) {
       showInfoMessage('请先选择板块');
       return [];

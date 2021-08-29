@@ -129,6 +129,6 @@ export class TopicCategoryNode extends TreeItem {
       title: '打开',
       command: TopicProvider.TOPIC_SELECT,
       arguments: [this]
-    }
+    };
   }
 }

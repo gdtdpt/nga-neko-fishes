@@ -3,19 +3,19 @@ import { Persistence } from './persistence';
 
 const buildUri = (...paths: string[]): Uri => {
   return Uri.joinPath(Persistence.context.extensionUri, ...paths);
-}
+};
 
 export const resources = (filename = ""): Uri => {
   return buildUri("resources", filename);
-}
+};
 
 export const styles = (filename = ""): Uri => {
   return buildUri("styles", filename);
-}
+};
 
 export const scripts = (filename = ""): Uri => {
   return buildUri("scripts", filename).with({ 'scheme': 'vscode-resource' });
-}
+};
 
 export const getNonce = () => {
   let text = '';
@@ -24,4 +24,4 @@ export const getNonce = () => {
     text += possible.charAt(Math.floor(Math.random() * possible.length));
   }
   return text;
-}
+};

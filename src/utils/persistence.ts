@@ -1,7 +1,5 @@
 import { ConfigurationTarget, ExtensionContext, workspace, } from 'vscode';
 
-const NGA_COOKIE_STORAGE_KEY = "nga_cookie_storage_key";
-
 export class Persistence {
   private context: ExtensionContext;
   private static INSTANCE: Persistence;

@@ -1,4 +1,4 @@
-import { ConfigurationTarget, Disposable, ViewColumn, WebviewPanel, window, workspace } from 'vscode';
+import { Disposable, ViewColumn, WebviewPanel, window } from 'vscode';
 import { Optional } from '../models';
 import { LoginPageParam } from '../models/login_page';
 import { getNonce, Persistence, resources, scripts, styles } from '../utils';
@@ -18,9 +18,9 @@ export class LoginPanel {
         localResourceRoots: [
           resources(),
           styles(),
-          scripts()
-        ]
-      }
+          scripts(),
+        ],
+      },
     );
     //get login page help image path
     const loginHelpImg = resources('login_help_get_cookie.png');
@@ -59,7 +59,9 @@ export class LoginPanel {
     this._panel.dispose();
     while (this._disposables.length) {
       const disposable = this._disposables.pop();
-      disposable && disposable.dispose();
+      if (disposable) {
+        disposable.dispose();
+      }
     }
   }
 }
@@ -97,5 +99,5 @@ const loginPage = (params: LoginPageParam): string => {
     <script nonce="${nonce}" src="${params.scriptSrc}"></script>
   </body>
   </html>
-  `
-}
+  `;
+};
