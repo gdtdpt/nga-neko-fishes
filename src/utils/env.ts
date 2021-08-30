@@ -7,4 +7,4 @@ export const openTopicPage = (fid: number) => {
 
 export const openPostPage = (tid: number) => {
   env.openExternal(Uri.parse(`https://ngabbs.com/read.php?tid=${tid}`));
-}
+};

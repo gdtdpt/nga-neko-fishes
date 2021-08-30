@@ -1,6 +1,6 @@
-# nga-neko-fishes README
+# NGA 程序喵 Vscode 摸鱼插件
 
-This is the README for your extension "nga-neko-fishes". After writing up a brief description, we recommend including the following sections.
+> 感谢 DarrenIce 老哥的[插件](https://github.com/DarrenIce/NGA-MoFish)提供的灵感和素材
 
 ## Features
 
@@ -24,8 +24,15 @@ For example:
 
 This extension contributes the following settings:
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+- `myExtension.enable`: enable/disable this extension
+- `myExtension.thing`: set to `blah` to do something
+
+## TODO
+
+- [x] Login
+- [x] Topic list
+- [x] Post list
+- [ ] Post detail
 
 ## Known Issues
 
@@ -47,19 +54,19 @@ Fixed issue #.
 
 Added features X, Y, and Z.
 
------------------------------------------------------------------------------------------------------------
+---
 
 ## Working with Markdown
 
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
+**Note:** You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
+- Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
+- Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
+- Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
 
 ### For more information
 
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+- [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
+- [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
 
 **Enjoy!**
