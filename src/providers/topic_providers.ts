@@ -1,15 +1,17 @@
-import { CancellationToken, commands, Event, EventEmitter, ProviderResult, TreeDataProvider, TreeItem, TreeItemCollapsibleState } from 'vscode';
+import { commands, Event, EventEmitter, TreeDataProvider, TreeItem, TreeItemCollapsibleState } from 'vscode';
 import { fetchTopicTree } from '../apis';
 import { SubTopic, Topic, TopicCategoryContentItem } from '../models';
 import { Persistence } from '../utils';
-import { PostProvider } from './post_providers';
+import { openPostPage, openTopicPage } from '../utils/env';
+import { PostItem, PostProvider } from './post_providers';
 
 // type TopicTreeNode = TopicNode[] | SubTopicNode[] | TopicCategoryNode[]
 
 export class TopicProvider implements TreeDataProvider<TreeItem> {
 
-  public static readonly REFRESH_COMMAND = 'topic.refresh';
-  public static readonly TOPIC_SELECT = 'topic.select';
+  public static readonly REFRESH_COMMAND = 'nga.topic.refresh';
+  public static readonly TOPIC_SELECT = 'nga.topic.select';
+  public static readonly OPEN_IN_BROWSER = 'nga.open.browser';
   private _onDidChangeTreeData: EventEmitter<TreeItem | null> = new EventEmitter<TreeItem | null>();
   readonly onDidChangeTreeData: Event<TreeItem | null> = this._onDidChangeTreeData.event;
   topics: TopicNode[] = [];
@@ -21,6 +23,7 @@ export class TopicProvider implements TreeDataProvider<TreeItem> {
     if (subscriptions) {
       subscriptions.push(commands.registerCommand(TopicProvider.REFRESH_COMMAND, this.refresh, this));
       subscriptions.push(commands.registerCommand(TopicProvider.TOPIC_SELECT, this.selectTopic, this));
+      subscriptions.push(commands.registerCommand(TopicProvider.OPEN_IN_BROWSER, this.openInBrowser, this));
     }
   }
 
@@ -52,6 +55,14 @@ export class TopicProvider implements TreeDataProvider<TreeItem> {
   public refresh() {
     this.topics = [];
     this._onDidChangeTreeData.fire(null);
+  }
+
+  private openInBrowser(node: TopicCategoryNode | PostItem) {
+    if (node instanceof TopicCategoryNode) {
+      openTopicPage(node.category.fid);
+    } else if (node instanceof PostItem) {
+      openPostPage(node.post.tid);
+    }
   }
 
   private selectTopic(node: TopicCategoryNode) {
@@ -123,7 +134,7 @@ export class TopicCategoryNode extends TreeItem {
   constructor(category: TopicCategoryContentItem) {
     super(category.name);
     this.category = category;
-    this.description = `${category.fid}`;
+    // this.description = `${category.fid}`; // 显示fid在末尾，测试用
     this.contextValue = 'topicCategoryNode';
     this.command = {
       title: '打开',

@@ -14,7 +14,8 @@
 		"onCommand:nga.login",
     "onView:topics"
 	],
-	"main": "./out/extension.js",
+	"main": "./out/main.js",
+  "icon": "resources/nga_logo.png",
 	"contributes": {
 		"commands": [
 			{
@@ -26,18 +27,23 @@
 				"title": "登录NGA"
 			},
       {
-        "command": "topic.refresh",
+        "command": "nga.topic.refresh",
         "title": "重载板块信息",
         "icon": "$(refresh)"
       },
       {
-        "command": "posts.refresh",
+        "command": "nga.posts.refresh",
         "title": "刷新帖子列表",
         "icon": "$(refresh)"
       },
       {
-        "command": "topic.select",
+        "command": "nga.topic.select",
         "title": "打开"
+      },
+      {
+        "command": "nga.open.browser",
+        "title": "浏览器中打开",
+        "icon": "$(globe)"
       }
 		],
     "configuration": {
@@ -92,27 +98,36 @@
     "menus": {
       "commandPalette": [
         {
-          "command": "topic.select",
+          "command": "nga.topic.select",
+          "when": "false"
+        },
+        {
+          "command": "nga.open.browser",
           "when": "false"
         }
       ],
       "view/title": [
         {
-          "command": "topic.refresh",
+          "command": "nga.topic.refresh",
           "when": "view == topics",
           "group": "navigation"
         },
         {
-          "command": "posts.refresh",
+          "command": "nga.posts.refresh",
           "when": "view == posts",
           "group": "navigation"
         }
       ],
       "view/item/context": [
         {
-          "command": "topic.select",
+          "command": "nga.topic.select",
           "when": "view == topics && viewItem == topicCategoryNode",
-          "group": "navigation@1"
+          "group": "navigation"
+        },
+        {
+          "command": "nga.open.browser",
+          "when": "viewItem == topicCategoryNode || viewItem == postItem",
+          "group": "inline"
         }
       ]
     }

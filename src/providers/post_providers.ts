@@ -6,7 +6,7 @@ import { showInfoMessage } from '../utils/commands';
 
 export class PostProvider implements TreeDataProvider<TreeItem> {
 
-  public readonly REFRESH_COMMAND = 'posts.refresh';
+  public readonly REFRESH_COMMAND = 'nga.posts.refresh';
   private _onDidChangeTreeData: EventEmitter<TreeItem | null> = new EventEmitter<TreeItem | null>();
   readonly onDidChangeTreeData?: Event<TreeItem | null> = this._onDidChangeTreeData.event;
   private treeView: TreeView<TreeItem> | null = null;
@@ -41,7 +41,7 @@ export class PostProvider implements TreeDataProvider<TreeItem> {
       const postList = await fetchPostList(this.category.fid);
       this.posts = this.buildPosts(postList);
       if (this.treeView) {
-        this.treeView.title = '大漩涡';
+        this.treeView.title = this.category.name;
       }
     }
     return this.posts;
@@ -60,12 +60,13 @@ export class PostProvider implements TreeDataProvider<TreeItem> {
 
 }
 
-class PostItem extends TreeItem {
+export class PostItem extends TreeItem {
   post: Post;
 
   constructor(post: Post) {
     super(post.subject);
     this.post = post;
     this.description = post.author;
+    this.contextValue = "postItem";
   }
 }
