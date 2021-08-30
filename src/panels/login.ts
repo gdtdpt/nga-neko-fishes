@@ -1,4 +1,5 @@
 import { Disposable, ViewColumn, WebviewPanel, window } from 'vscode';
+import { normalWebviewOptions } from '.';
 import { Optional } from '../models';
 import { LoginPageParam } from '../models/login_page';
 import { getNonce, Persistence, resources, scripts, styles } from '../utils';
@@ -13,14 +14,7 @@ export class LoginPanel {
       'ngaLogin',
       '登录',
       ViewColumn.One,
-      {
-        enableScripts: true,
-        localResourceRoots: [
-          resources(),
-          styles(),
-          scripts(),
-        ],
-      },
+      normalWebviewOptions()
     );
     //get login page help image path
     const loginHelpImg = resources('login_help_get_cookie.png');
@@ -66,7 +60,7 @@ export class LoginPanel {
   }
 }
 
-const loginPage = (params: LoginPageParam): string => {
+export const loginPage = (params: LoginPageParam): string => {
   const nonce = getNonce();
   const cookie = Persistence.cookie || '';
   return `

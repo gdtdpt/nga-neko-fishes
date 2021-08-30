@@ -1,7 +1,8 @@
 import * as vscode from 'vscode';
-import { fetchPostList } from './apis';
+import { fetchPost } from './apis';
 import { NGA_LOGIN_COMMAND } from './models';
 import { LoginPanel } from './panels';
+import { createPostDetailPanel } from './panels/post_detail';
 import { PostProvider } from './providers/post_providers';
 import { TopicProvider } from './providers/topic_providers';
 import { Persistence } from './utils';
@@ -11,7 +12,7 @@ import { Persistence } from './utils';
 export function activate(context: vscode.ExtensionContext) {
   Persistence.init(context);
   let disposable = vscode.commands.registerCommand('extension.helloWorld', () => {
-    fetchPostList(-7).then(res => {
+    fetchPost(28038961).then(res => {
       console.log(`test res: `, res);
     });
   });
@@ -27,7 +28,16 @@ export function activate(context: vscode.ExtensionContext) {
   const loginCommand = vscode.commands.registerCommand(NGA_LOGIN_COMMAND, () => LoginPanel.init());
   context.subscriptions.push(loginCommand);
 
+  context.subscriptions.push(
+    vscode.commands.registerCommand('nga.show.post', () => createPostDetailPanel())
+  );
+
 }
 
 // this method is called when your extension is deactivated
 export function deactivate() { }
+
+function getNonce() {
+  throw new Error('Function not implemented.');
+}
+

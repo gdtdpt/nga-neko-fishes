@@ -1,5 +1,8 @@
-import { request } from '.';
-import { NGAResponse, ObjectArray, Post, PostResponse, SubTopic, Topic, TopicCategory, TopicCategoryContent, TopicCategoryContentItem, TopicResponse } from '../models';
+import { requestJSONWithoutHtml, requestJSON } from '.';
+import {
+  NGAResponse, ObjectArray, Post, PostResponse, SubTopic, Topic,
+  TopicCategory, TopicCategoryContent, TopicCategoryContentItem, TopicResponse
+} from '../models';
 
 
 
@@ -8,7 +11,11 @@ import { NGAResponse, ObjectArray, Post, PostResponse, SubTopic, Topic, TopicCat
  * 因为水区必须登录访问，也用于测试cookie的可用性
  */
 export const checkCookie = () => {
-  return request<PostResponse>(`https://ngabbs.com/thread.php?fid=-7&lite=js`);
+  return requestJSON<PostResponse>(`https://ngabbs.com/thread.php?fid=-7&lite=js`);
+};
+
+export const fetchPost = (tid: number) => {
+  return requestJSONWithoutHtml(`https://ngabbs.com/read.php?tid=${tid}&lite=js`);
 };
 
 /**
@@ -17,7 +24,7 @@ export const checkCookie = () => {
  * @returns 返回NGA的原始数据Promise
  */
 const fetchPosts = (fid: number) => {
-  return request<PostResponse>(`https://ngabbs.com/thread.php?fid=${fid}&lite=js`);
+  return requestJSON<PostResponse>(`https://ngabbs.com/thread.php?fid=${fid}&lite=js`);
 };
 
 /**
@@ -46,7 +53,7 @@ function composePost(response: PostResponse): Post[] {
  * 拿板块列表
  */
 const fetchTopics = (): Promise<NGAResponse<TopicResponse>> => {
-  return request<TopicResponse>(`https://img4.nga.178.com/proxy/cache_attach/bbs_index_data.js?4226406`);
+  return requestJSON<TopicResponse>(`https://img4.nga.178.com/proxy/cache_attach/bbs_index_data.js?4226406`);
 };
 
 export const fetchTopicTree = (): Promise<Topic[]> => {
@@ -80,12 +87,12 @@ function composeSubTopic(subTopics: ObjectArray<TopicCategoryContent>): SubTopic
   let generalIndex = 0;
   const getGeneralName = (): string => {
     if (generalIndex) {
-      return `${generalName}${generalIndex++}`
+      return `${generalName}${generalIndex++}`;
     } else {
       generalIndex += 2;
       return generalName;
     }
-  }
+  };
   for (const subTopicKey of Object.keys(subTopics)) {
     const subTopicInfo = subTopics[subTopicKey];
     const subTopic: SubTopic = {

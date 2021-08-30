@@ -1,12 +1,14 @@
-import { commands, Event, EventEmitter, TreeDataProvider, TreeItem, TreeView } from 'vscode';
+import { commands, Event, EventEmitter, TreeDataProvider, TreeItem, TreeView, ViewColumn, window } from 'vscode';
 import { fetchPostList } from '../apis';
 import { Post, TopicCategoryContentItem } from '../models';
+import { createPostDetailPanel } from '../panels/post_detail';
 import { Persistence } from '../utils';
 import { showInfoMessage } from '../utils/commands';
 
 export class PostProvider implements TreeDataProvider<TreeItem> {
 
-  public readonly REFRESH_COMMAND = 'nga.posts.refresh';
+  public static readonly REFRESH_COMMAND = 'nga.posts.refresh';
+  public static readonly POST_SELECT = 'nga.post.select';
   private _onDidChangeTreeData: EventEmitter<TreeItem | null> = new EventEmitter<TreeItem | null>();
   readonly onDidChangeTreeData?: Event<TreeItem | null> = this._onDidChangeTreeData.event;
   private treeView: TreeView<TreeItem> | null = null;
@@ -16,7 +18,8 @@ export class PostProvider implements TreeDataProvider<TreeItem> {
   constructor() {
     const { subscriptions } = Persistence.context;
     if (subscriptions) {
-      subscriptions.push(commands.registerCommand(this.REFRESH_COMMAND, this.refresh, this));
+      subscriptions.push(commands.registerCommand(PostProvider.REFRESH_COMMAND, this.refresh, this));
+      subscriptions.push(commands.registerCommand(PostProvider.POST_SELECT, this.selctPost, this));
     }
   }
 
@@ -53,6 +56,14 @@ export class PostProvider implements TreeDataProvider<TreeItem> {
     });
   }
 
+  private selctPost(post: PostItem) {
+    // TODO
+    console.log(`select post`);
+    // const showPost = commands.registerCommand('nga.show.post', () => createPostDetailPanel(post.post));
+    // Persistence.context.subscriptions.push(showPost);
+    commands.executeCommand('nga.show.post');
+  }
+
   public refresh() {
     this.posts = [];
     this._onDidChangeTreeData.fire(null);
@@ -68,5 +79,10 @@ export class PostItem extends TreeItem {
     this.post = post;
     this.description = post.author;
     this.contextValue = "postItem";
+    this.command = {
+      title: '打开',
+      command: PostProvider.POST_SELECT,
+      arguments: [this]
+    };
   }
 }

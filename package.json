@@ -1,6 +1,7 @@
 {
   "name": "nga-neko-fishes",
   "displayName": "NGA Neko Fishes",
+  "publisher": "Richard",
   "description": "relax",
   "version": "0.0.1",
   "engines": {
@@ -12,6 +13,7 @@
   "activationEvents": [
     "onCommand:extension.helloWorld",
     "onCommand:nga.login",
+    "onCommand:nga.show.post",
     "onView:topics"
   ],
   "main": "./out/main.js",
@@ -41,9 +43,17 @@
         "title": "打开"
       },
       {
+        "command": "nga.post.select",
+        "title": "打开"
+      },
+      {
         "command": "nga.open.browser",
         "title": "浏览器中打开",
         "icon": "$(globe)"
+      },
+      {
+        "command": "nga.show.post",
+        "title": "显示帖子"
       }
     ],
     "configuration": {
@@ -102,6 +112,10 @@
           "when": "false"
         },
         {
+          "command": "nga.post.select",
+          "when": "false"
+        },
+        {
           "command": "nga.open.browser",
           "when": "false"
         }
@@ -122,6 +136,11 @@
         {
           "command": "nga.topic.select",
           "when": "view == topics && viewItem == topicCategoryNode",
+          "group": "navigation"
+        },
+        {
+          "command": "nga.post.select",
+          "when": "view == posts && viewItem == postItem",
           "group": "navigation"
         },
         {
@@ -154,6 +173,7 @@
     "vscode-test": "^1.2.2"
   },
   "dependencies": {
+    "cheerio": "^1.0.0-rc.10",
     "iconv-lite": "^0.6.3"
   }
 }

@@ -6,7 +6,29 @@ import * as iconv from 'iconv-lite';
 import { commands } from 'vscode';
 import { NGAResponse, NGAResponseError, NGA_LOGIN_COMMAND } from '../models';
 
-export function request<T>(url: string): Promise<NGAResponse<T>> {
+export function requestJSONWithoutHtml(url: string): Promise<string> {
+  return request(url, some => {
+    const jsonStr = some.replace('window.script_muti_get_var_store=', '')
+      .replace(/"alterinfo":".*?",/g, '')
+      .replace(/\[img\]\./g, '<img style=\\"background-color: #FFFAFA\\" src=\\"https://img.nga.178.com/attachments')
+      .replace(/\[\/img\]/g, '\\">')
+      .replace(/\[img\]/g, '<img style=\\"background-color: #FFFAFA\\" src=\\"')
+      .replace(/\[url\]/g, '<a href=\\"').replace(/\[\/url\]/g, '\\">url</a>')
+      .replace(/"signature":".*?",/g, '');
+    const json = JSON.parse(jsonStr);
+    console.log(`json: `, json);
+    return json;
+  });
+}
+
+export function requestJSON<T>(url: string): Promise<NGAResponse<T>> {
+  return request(url, some => {
+    const jsonString = some.trim().replace('window.script_muti_get_var_store=', '');
+    return JSON.parse(jsonString);
+  });
+}
+
+export function request<T>(url: string, fn: (some: string) => any): Promise<any> {
   return new Promise<T>((resolve, reject) => {
     const requestClient = https.request(url, {
       headers: {
@@ -18,8 +40,7 @@ export function request<T>(url: string): Promise<NGAResponse<T>> {
       res.on('end', () => {
         const buf = Buffer.concat(chunks);
         const some = iconv.decode(buf, 'GBK');
-        const jsonString = some.trim().replace('window.script_muti_get_var_store=', '');
-        const result = JSON.parse(jsonString);
+        const result = fn(some);
         if (result?.error) {
           handleError(result as NGAResponseError);
           showErrorMessage(result.error['0']);
