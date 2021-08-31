@@ -17,6 +17,10 @@ export const scripts = (filename = ""): Uri => {
   return buildUri("scripts", filename).with({ 'scheme': 'vscode-resource' });
 };
 
+export const templates = (filename = ""): Uri => {
+  return buildUri("templates", filename);
+};
+
 export const getNonce = () => {
   let text = '';
   const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

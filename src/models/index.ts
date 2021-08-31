@@ -1,4 +1,3 @@
-export * from './login_page';
 export * from './topic';
 export * from './post';
 

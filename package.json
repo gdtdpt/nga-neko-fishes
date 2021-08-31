@@ -4,6 +4,10 @@
   "publisher": "Richard",
   "description": "relax",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gdtdpt/nga-neko-fishes"
+  },
   "engines": {
     "vscode": "^1.39.0"
   },
@@ -172,6 +176,7 @@
     "vscode-test": "^1.2.2"
   },
   "dependencies": {
+    "handlebars": "^4.7.7",
     "iconv-lite": "^0.6.3"
   }
 }
