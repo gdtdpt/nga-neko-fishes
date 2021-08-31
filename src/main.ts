@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { fetchPost } from './apis';
-import { NGA_LOGIN_COMMAND } from './models';
+import { NGA_LOGIN_COMMAND, Post } from './models';
 import { LoginPanel } from './panels';
 import { createPostDetailPanel } from './panels/post_detail';
 import { PostProvider } from './providers/post_providers';
@@ -19,17 +19,19 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(disposable);
   // posts
   const postProvider = new PostProvider();
-  const postsView = vscode.window.createTreeView('posts', { treeDataProvider: postProvider });
+  const postsView = vscode.window.createTreeView('postTree', { treeDataProvider: postProvider, showCollapseAll: true, canSelectMany: false });
   postProvider.setTreeView(postsView);
   // topics
-  const topicTree = vscode.window.registerTreeDataProvider('topics', new TopicProvider(postProvider));
+  const topicTree = vscode.window.registerTreeDataProvider('topicTree', new TopicProvider(postProvider));
   context.subscriptions.push(topicTree);
   // login panel
   const loginCommand = vscode.commands.registerCommand(NGA_LOGIN_COMMAND, () => LoginPanel.init());
   context.subscriptions.push(loginCommand);
 
   context.subscriptions.push(
-    vscode.commands.registerCommand('nga.show.post', () => createPostDetailPanel())
+    vscode.commands.registerCommand('nga.show.post', (post: Post) => {
+      createPostDetailPanel(post);
+    })
   );
 
 }

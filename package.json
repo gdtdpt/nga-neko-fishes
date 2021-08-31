@@ -14,7 +14,7 @@
     "onCommand:extension.helloWorld",
     "onCommand:nga.login",
     "onCommand:nga.show.post",
-    "onView:topics"
+    "onView:topicTree"
   ],
   "main": "./out/main.js",
   "icon": "resources/nga_logo.png",
@@ -26,7 +26,7 @@
       },
       {
         "command": "nga.login",
-        "title": "登录NGA"
+        "title": "设置NGA Cookie"
       },
       {
         "command": "nga.topic.refresh",
@@ -78,13 +78,12 @@
     "views": {
       "nga": [
         {
-          "id": "topics",
+          "id": "topicTree",
           "name": "板块列表"
         },
         {
-          "id": "posts",
-          "name": "主题列表",
-          "visibility": "collapsed"
+          "id": "postTree",
+          "name": "主题列表"
         }
       ]
     },
@@ -173,7 +172,6 @@
     "vscode-test": "^1.2.2"
   },
   "dependencies": {
-    "cheerio": "^1.0.0-rc.10",
     "iconv-lite": "^0.6.3"
   }
 }

@@ -1,7 +1,6 @@
-import { commands, Event, EventEmitter, TreeDataProvider, TreeItem, TreeView, ViewColumn, window } from 'vscode';
+import { commands, Event, EventEmitter, TreeDataProvider, TreeItem, TreeView } from 'vscode';
 import { fetchPostList } from '../apis';
 import { Post, TopicCategoryContentItem } from '../models';
-import { createPostDetailPanel } from '../panels/post_detail';
 import { Persistence } from '../utils';
 import { showInfoMessage } from '../utils/commands';
 
@@ -37,7 +36,7 @@ export class PostProvider implements TreeDataProvider<TreeItem> {
 
   async getChildren(_?: TreeItem): Promise<TreeItem[]> {
     if (!this.category) {
-      showInfoMessage('请先选择板块');
+      // showInfoMessage('请先选择板块');
       return [];
     }
     if (!this.posts.length) {
@@ -57,11 +56,7 @@ export class PostProvider implements TreeDataProvider<TreeItem> {
   }
 
   private selctPost(post: PostItem) {
-    // TODO
-    console.log(`select post`);
-    // const showPost = commands.registerCommand('nga.show.post', () => createPostDetailPanel(post.post));
-    // Persistence.context.subscriptions.push(showPost);
-    commands.executeCommand('nga.show.post');
+    commands.executeCommand('nga.show.post', post.post);
   }
 
   public refresh() {

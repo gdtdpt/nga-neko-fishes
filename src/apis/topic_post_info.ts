@@ -1,4 +1,4 @@
-import { requestJSONWithoutHtml, requestJSON } from '.';
+import { requestPostDetail, requestJSON } from '.';
 import {
   NGAResponse, ObjectArray, Post, PostResponse, SubTopic, Topic,
   TopicCategory, TopicCategoryContent, TopicCategoryContentItem, TopicResponse
@@ -15,7 +15,7 @@ export const checkCookie = () => {
 };
 
 export const fetchPost = (tid: number) => {
-  return requestJSONWithoutHtml(`https://ngabbs.com/read.php?tid=${tid}&lite=js`);
+  return requestPostDetail(`https://ngabbs.com/read.php?tid=${tid}&lite=js`);
 };
 
 /**

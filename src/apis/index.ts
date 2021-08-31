@@ -5,8 +5,12 @@ import { showErrorMessage } from '../utils/commands';
 import * as iconv from 'iconv-lite';
 import { commands } from 'vscode';
 import { NGAResponse, NGAResponseError, NGA_LOGIN_COMMAND } from '../models';
+import { PostDetailResponse } from '../models/post_detail';
 
-export function requestJSONWithoutHtml(url: string): Promise<string> {
+/**
+ * 帖子数据太特殊了，只能这样处理
+ */
+export function requestPostDetail(url: string): Promise<PostDetailResponse> {
   return request(url, some => {
     const jsonStr = some.replace('window.script_muti_get_var_store=', '')
       .replace(/"alterinfo":".*?",/g, '')
