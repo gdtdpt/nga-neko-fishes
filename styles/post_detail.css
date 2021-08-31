@@ -24,19 +24,19 @@ body {
   position: relative;
   align-items: center;
   border: 1px solid lightcyan;
-  border-radius: 5px 5px 0 5px;
+  border-radius: 5px;
 }
 .threads .author .thread {
   position: absolute;
-  border: 1px solid lightcyan;
-  bottom: -1px;
-  right: -17px;
-  width: 15px;
-  height: 15px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  border-radius: 0 5px 5px 0;
+  min-width: 30px;
+  background-image: linear-gradient(to left, lightblue, transparent);
+  bottom: 0;
+  right: 0;
+  width: 30px;
+  justify-content: flex-end;
+  padding-right: 5px;
 }
 .threads .author .img-wrapper {
   display: table-cell;
@@ -45,6 +45,7 @@ body {
   overflow: hidden;
   width: 5em;
   height: 5em;
+  margin-bottom: 10px;
 }
 .threads .author .img-wrapper img {
   max-height: 100%;

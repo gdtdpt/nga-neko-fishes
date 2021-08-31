@@ -11,11 +11,6 @@ export interface PostContextDetail extends PostDetailR {
   author?: PostDetailU;
 }
 
-export interface PostDetail {
-  users: { [key: string]: PostDetailU };
-  replies: PostDetailR[];
-}
-
 export interface PostDetailResponse {
   data: PostDetailData;
   encode: string;
@@ -165,7 +160,7 @@ export interface PostDetailU {
   reputation: string;
   groupid: number;
   memberid: number;
-  avatar: string;
+  avatar: any;          // string | Uri
   yz: number;
   site: string;
   honor: string;

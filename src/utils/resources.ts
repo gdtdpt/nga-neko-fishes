@@ -1,6 +1,10 @@
 import { Uri } from 'vscode';
 import { Persistence } from './persistence';
 
+export const defaultAvatar = (): Uri => {
+  return resources('avatar.png');
+};
+
 const buildUri = (...paths: string[]): Uri => {
   return Uri.joinPath(Persistence.context.extensionUri, ...paths);
 };

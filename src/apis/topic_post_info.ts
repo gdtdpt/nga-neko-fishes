@@ -3,7 +3,8 @@ import {
   NGAResponse, ObjectArray, Post, PostResponse, SubTopic, Topic,
   TopicCategory, TopicCategoryContent, TopicCategoryContentItem, TopicResponse
 } from '../models';
-import { PostContext, PostContextDetail, PostDetail, PostDetailResponse } from '../models/post_detail';
+import { PostContext, PostContextDetail, PostDetailResponse } from '../models/post_detail';
+import { defaultAvatar } from '../utils';
 
 
 

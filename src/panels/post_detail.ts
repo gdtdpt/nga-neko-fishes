@@ -3,8 +3,7 @@ import * as handlebars from 'handlebars';
 import { getRawTemplateSource, normalWebviewOptions } from '.';
 import { fetchPostDetail } from '../apis';
 import { Post } from '../models';
-import { getNonce, resources, scripts, styles } from '../utils';
-import { PostContext, PostDetail } from '../models/post_detail';
+import { defaultAvatar, getNonce, resources, scripts, styles } from '../utils';
 
 const posts: Map<number, WebviewPanel> = new Map();
 
@@ -45,6 +44,11 @@ async function buildPostDetailContent(panel: WebviewPanel, post: Post) {
   const style = panel.webview.asWebviewUri(styleResource);
   const nonce = getNonce();
   const context = await fetchPostDetail(post.tid);
+  context.threads.forEach(thread => {
+    if (thread.author && thread.author.avatar === '') {
+      thread.author.avatar = panel.webview.asWebviewUri(defaultAvatar());
+    }
+  });
   const templateHtml = getRawTemplateSource("post_detail.html");
   console.log(`context: `, context);
   const page = handlebars.compile(templateHtml)({ style, nonce, script, context, cspSource: panel.webview.cspSource });
