@@ -3,6 +3,7 @@ import {
   NGAResponse, ObjectArray, Post, PostResponse, SubTopic, Topic,
   TopicCategory, TopicCategoryContent, TopicCategoryContentItem, TopicResponse
 } from '../models';
+import { PostContext, PostContextDetail, PostDetail, PostDetailResponse } from '../models/post_detail';
 
 
 
@@ -14,9 +15,32 @@ export const checkCookie = () => {
   return requestJSON<PostResponse>(`https://ngabbs.com/thread.php?fid=-7&lite=js`);
 };
 
-export const fetchPost = (tid: number) => {
-  return requestPostDetail(`https://ngabbs.com/read.php?tid=${tid}&lite=js`);
+export const fetchPost = (tid: number, page = 1) => {
+  return requestPostDetail(`https://ngabbs.com/read.php?tid=${tid}&lite=js&page=${page}`);
 };
+
+export const fetchPostDetail = (tid: number): Promise<PostContext> => {
+  return fetchPost(tid)
+    .then(res => composePostDetail(res));
+};
+
+function composePostDetail(response: PostDetailResponse): PostContext {
+  const { __U, __R, __T, __R__ROWS_PAGE, __ROWS, __PAGE } = response.data;
+  const totalPage = Math.floor(__ROWS / __R__ROWS_PAGE) + 1;
+  const postContext: PostContext = { post: __T, threads: [], totalPage, currentPage: __PAGE };
+  for (const key of Object.keys(__R)) {
+    let replay = __R[key];
+    if (__U[replay.authorid]) {
+      const userInfo = __U[replay.authorid];
+      if (userInfo.avatar.indexOf('|') > -1) {
+        userInfo.avatar = userInfo.avatar.substr(0, userInfo.avatar.indexOf('|'));
+      }
+      (replay as PostContextDetail).author = userInfo;
+    }
+    postContext.threads.push(replay);
+  }
+  return postContext;
+}
 
 /**
  * 拿具体板块的帖子列表

@@ -20,7 +20,6 @@ export function requestPostDetail(url: string): Promise<PostDetailResponse> {
       .replace(/\[url\]/g, '<a href=\\"').replace(/\[\/url\]/g, '\\">url</a>')
       .replace(/"signature":".*?",/g, '');
     const json = JSON.parse(jsonStr);
-    console.log(`json: `, json);
     return json;
   });
 }

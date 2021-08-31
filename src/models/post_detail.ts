@@ -1,5 +1,21 @@
 import { ObjectArray } from '.';
 
+export interface PostContext {
+  totalPage: number;
+  currentPage: number;
+  post: PostDetailT;
+  threads: PostContextDetail[];
+}
+
+export interface PostContextDetail extends PostDetailR {
+  author?: PostDetailU;
+}
+
+export interface PostDetail {
+  users: { [key: string]: PostDetailU };
+  replies: PostDetailR[];
+}
+
 export interface PostDetailResponse {
   data: PostDetailData;
   encode: string;

@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { fetchPost } from './apis';
+import { checkCookie, fetchPostDetail } from './apis';
 import { NGA_LOGIN_COMMAND, Post } from './models';
 import { LoginPanel } from './panels';
 import { createPostDetailPanel } from './panels/post_detail';
@@ -11,8 +11,9 @@ import { Persistence } from './utils';
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
   Persistence.init(context);
+  checkCookie();
   let disposable = vscode.commands.registerCommand('extension.helloWorld', () => {
-    fetchPost(28038961).then(res => {
+    fetchPostDetail(28038961).then(res => {
       console.log(`test res: `, res);
     });
   });

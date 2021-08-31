@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="{{style}}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'none'; style-src {{cspSource}}; img-src {{cspSource}} https://*.178.com http://*.178.com http://img.ngacn.cc https:; script-src 'nonce-{{nonce}}';">
+</head>
+
+<body>
+  <div class="subject">{{context.post.subject}}</div>
+  {{#each context.threads}}
+  <div class="threads">
+    <div class="author">
+      <div class="thread">
+        {{lou}}
+      </div>
+      <div class="img-wrapper">
+        <img src="{{author.avatar}}">
+      </div>
+      {{author.username}}
+    </div>
+    <div class="content">
+      {{{content}}}
+    </div>
+  </div>
+  {{/each}}
+  <script nonce="{{nonce}}" src="{{script}}"></script>
+</body>
+
+</html>

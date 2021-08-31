@@ -2,7 +2,7 @@ import { Disposable, ViewColumn, WebviewPanel, window } from 'vscode';
 import * as handlebars from 'handlebars';
 import { getRawTemplateSource, normalWebviewOptions } from '.';
 import { Optional } from '../models';
-import { getNonce, Persistence, resources, scripts, styles, templates } from '../utils';
+import { getNonce, Persistence, resources, scripts, styles } from '../utils';
 import { showInfoMessage } from '../utils/commands';
 
 export class LoginPanel {
