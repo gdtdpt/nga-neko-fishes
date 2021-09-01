@@ -4,9 +4,6 @@ import {
   TopicCategory, TopicCategoryContent, TopicCategoryContentItem, TopicResponse
 } from '../models';
 import { PostContext, PostContextDetail, PostDetailResponse } from '../models/post_detail';
-import { defaultAvatar } from '../utils';
-
-
 
 /**
  * 拿水区的帖子
@@ -20,8 +17,8 @@ export const fetchPost = (tid: number, page = 1) => {
   return requestPostDetail(`https://ngabbs.com/read.php?tid=${tid}&lite=js&page=${page}`);
 };
 
-export const fetchPostDetail = (tid: number): Promise<PostContext> => {
-  return fetchPost(tid)
+export const fetchPostDetail = (tid: number, pageNum = 1): Promise<PostContext> => {
+  return fetchPost(tid, pageNum)
     .then(res => composePostDetail(res));
 };
 
@@ -33,8 +30,14 @@ function composePostDetail(response: PostDetailResponse): PostContext {
     let replay = __R[key];
     if (__U[replay.authorid]) {
       const userInfo = __U[replay.authorid];
-      if (userInfo.avatar.indexOf('|') > -1) {
-        userInfo.avatar = userInfo.avatar.substr(0, userInfo.avatar.indexOf('|'));
+      if (userInfo.avatar) {  // fuck zeg
+        if (userInfo.avatar['0']) {
+          if (userInfo.avatar['0'].length > 1) { // multiple avatar urls with fucking map by fucking string sequence number
+            userInfo.avatar = userInfo.avatar['0'];
+          } else if (userInfo.avatar.indexOf('|') > -1) { // multiple avatar urls with fucking '|' sign
+            userInfo.avatar = userInfo.avatar.substr(0, userInfo.avatar.indexOf('|'));
+          }
+        }
       }
       (replay as PostContextDetail).author = userInfo;
     }

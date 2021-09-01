@@ -5,7 +5,7 @@ import { Persistence } from '../utils';
 import { openPostPage, openTopicPage } from '../utils/env';
 import { PostItem, PostProvider } from './post_providers';
 
-// type TopicTreeNode = TopicNode[] | SubTopicNode[] | TopicCategoryNode[]
+type TopicTreeNode = TopicNode | SubTopicNode | TopicCategoryNode;
 
 export class TopicProvider implements TreeDataProvider<TreeItem> {
 
@@ -27,7 +27,10 @@ export class TopicProvider implements TreeDataProvider<TreeItem> {
     }
   }
 
-  getTreeItem(element: TreeItem): TreeItem | Thenable<TreeItem> {
+  getTreeItem(element: TopicTreeNode): TreeItem | Thenable<TreeItem> {
+    if (element instanceof TopicCategoryNode && element.category.fid === -7) { // 永远的大漩涡
+      element.label = '大漩涡';
+    }
     return element;
   }
 

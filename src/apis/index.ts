@@ -18,6 +18,7 @@ export function requestPostDetail(url: string): Promise<PostDetailResponse> {
       .replace(/\[\/img\]/g, '\\">')
       .replace(/\[img\]/g, '<img style=\\"background-color: #FFFAFA\\" src=\\"')
       .replace(/\[url\]/g, '<a href=\\"').replace(/\[\/url\]/g, '\\">url</a>')
+      .replace(/\\u000b/g, '')
       .replace(/"signature":".*?",/g, '');
     const json = JSON.parse(jsonStr);
     return json;

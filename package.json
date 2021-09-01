@@ -93,17 +93,17 @@
     },
     "viewsWelcome": [
       {
-        "view": "topics",
+        "view": "topicTree",
         "when": "config.nga.cookie == null || config.nga.cookie == ''",
         "contents": "请先登录\n[登录](command:nga.login)"
       },
       {
-        "view": "posts",
+        "view": "postTree",
         "when": "config.nga.cookie == null || config.nga.cookie == ''",
         "contents": "请先登录\n[登录](command:nga.login)"
       },
       {
-        "view": "posts",
+        "view": "postTree",
         "when": "config.nga.cookie != null && config.nga.cookie != ''",
         "contents": "请先选择板块"
       }
@@ -126,24 +126,24 @@
       "view/title": [
         {
           "command": "nga.topic.refresh",
-          "when": "view == topics",
+          "when": "view == topicTree",
           "group": "navigation"
         },
         {
           "command": "nga.posts.refresh",
-          "when": "view == posts",
+          "when": "view == postTree",
           "group": "navigation"
         }
       ],
       "view/item/context": [
         {
           "command": "nga.topic.select",
-          "when": "view == topics && viewItem == topicCategoryNode",
+          "when": "view == topicTree && viewItem == topicCategoryNode",
           "group": "navigation"
         },
         {
           "command": "nga.post.select",
-          "when": "view == posts && viewItem == postItem",
+          "when": "view == postTree && viewItem == postItem",
           "group": "navigation"
         },
         {

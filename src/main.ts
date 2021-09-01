@@ -13,9 +13,10 @@ export function activate(context: vscode.ExtensionContext) {
   Persistence.init(context);
   checkCookie();
   let disposable = vscode.commands.registerCommand('extension.helloWorld', () => {
-    fetchPostDetail(28038961).then(res => {
-      console.log(`test res: `, res);
-    });
+    vscode.window.setStatusBarMessage('testtest', 5000);
+    // fetchPostDetail(28038961).then(res => {
+    //   console.log(`test res: `, res);
+    // });
   });
   context.subscriptions.push(disposable);
   // posts

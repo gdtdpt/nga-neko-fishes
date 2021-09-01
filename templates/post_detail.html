@@ -3,30 +3,41 @@
 
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" href="{{bootstrapStyle}}">
   <link rel="stylesheet" href="{{style}}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy"
-    content="default-src 'none'; style-src {{cspSource}}; img-src {{cspSource}} https://*.178.com http://*.178.com http://img.ngacn.cc http://img.nga.cn https:; script-src 'nonce-{{nonce}}';">
 </head>
 
 <body>
-  <div class="subject">{{context.post.subject}}</div>
+  <div class="h2 subject">{{context.post.subject}}</div>
   {{#each context.threads}}
   <div class="threads">
-    <div class="author">
+    <div class="header">
+      <div class="author" data-bs-toggle="popover" title="Popover title"
+        data-bs-content="And here's some amazing content. It's very engaging. Right?">
+        <div class="img-wrapper">
+          <img width="24" height="24" src="{{author.avatar}}">
+        </div>
+        <div class="author-name">
+          {{author.username}}
+        </div>
+      </div>
       <div class="thread">
-        {{lou}}
+        <div class="shape">#</div>
+        <div class="lou">{{lou}}</div>
       </div>
-      <div class="img-wrapper">
-        <img src="{{author.avatar}}">
-      </div>
-      {{author.username}}
     </div>
     <div class="content">
       {{{content}}}
     </div>
   </div>
   {{/each}}
+  <div class="pagination-region">
+    <ul class="pagination">
+      {{{pagination context.currentPage context.totalPage}}}
+    </ul>
+  </div>
+  <script src={{bootstrapJS}}></script>
   <script nonce="{{nonce}}" src="{{script}}"></script>
 </body>
 
