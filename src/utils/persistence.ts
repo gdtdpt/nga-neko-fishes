@@ -10,11 +10,11 @@ export class Persistence {
     this.INSTANCE = new Persistence(context);
   }
   static set cookie(cookie: string) {
-    const cookieConfig = workspace.getConfiguration('nga');
+    const cookieConfig = workspace.getConfiguration('neko');
     cookieConfig.update('cookie', cookie, ConfigurationTarget.Global);
   }
   static get cookie(): string {
-    const cookieConfig = workspace.getConfiguration('nga');
+    const cookieConfig = workspace.getConfiguration('neko');
     return cookieConfig.get<string>('cookie') || '';
   }
   static get context(): ExtensionContext {

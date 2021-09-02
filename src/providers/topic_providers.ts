@@ -9,9 +9,9 @@ type TopicTreeNode = TopicNode | SubTopicNode | TopicCategoryNode;
 
 export class TopicProvider implements TreeDataProvider<TreeItem> {
 
-  public static readonly REFRESH_COMMAND = 'nga.topic.refresh';
-  public static readonly TOPIC_SELECT = 'nga.topic.select';
-  public static readonly OPEN_IN_BROWSER = 'nga.open.browser';
+  public static readonly REFRESH_COMMAND = 'neko.topic.refresh';
+  public static readonly TOPIC_SELECT = 'neko.topic.select';
+  public static readonly OPEN_IN_BROWSER = 'neko.open.browser';
   private _onDidChangeTreeData: EventEmitter<TreeItem | null> = new EventEmitter<TreeItem | null>();
   readonly onDidChangeTreeData: Event<TreeItem | null> = this._onDidChangeTreeData.event;
   topics: TopicNode[] = [];

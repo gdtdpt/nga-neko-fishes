@@ -31,7 +31,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(loginCommand);
 
   context.subscriptions.push(
-    vscode.commands.registerCommand('nga.show.post', (post: Post) => {
+    vscode.commands.registerCommand('neko.show.post', (post: Post) => {
       createPostDetailPanel(post);
     })
   );

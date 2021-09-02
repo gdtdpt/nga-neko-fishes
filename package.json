@@ -16,8 +16,8 @@
   ],
   "activationEvents": [
     "onCommand:extension.helloWorld",
-    "onCommand:nga.login",
-    "onCommand:nga.show.post",
+    "onCommand:neko.login",
+    "onCommand:neko.show.post",
     "onView:topicTree"
   ],
   "main": "./out/main.js",
@@ -29,41 +29,41 @@
         "title": "Hello World"
       },
       {
-        "command": "nga.login",
+        "command": "neko.login",
         "title": "设置NGA Cookie"
       },
       {
-        "command": "nga.topic.refresh",
+        "command": "neko.topic.refresh",
         "title": "重载板块信息",
         "icon": "$(refresh)"
       },
       {
-        "command": "nga.posts.refresh",
+        "command": "neko.posts.refresh",
         "title": "刷新帖子列表",
         "icon": "$(refresh)"
       },
       {
-        "command": "nga.topic.select",
+        "command": "neko.topic.select",
         "title": "打开"
       },
       {
-        "command": "nga.post.select",
+        "command": "neko.post.select",
         "title": "打开"
       },
       {
-        "command": "nga.open.browser",
+        "command": "neko.open.browser",
         "title": "浏览器中打开",
         "icon": "$(globe)"
       },
       {
-        "command": "nga.show.post",
+        "command": "neko.show.post",
         "title": "显示帖子"
       }
     ],
     "configuration": {
       "title": "NGA摸鱼插件",
       "properties": {
-        "nga.cookie": {
+        "neko.cookie": {
           "type": "string",
           "scope": "resource",
           "description": "登录NGA后获得的Cookie"
@@ -73,14 +73,14 @@
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "nga",
+          "id": "ngaNeko",
           "title": "NGA",
           "icon": "resources/nga.svg"
         }
       ]
     },
     "views": {
-      "nga": [
+      "ngaNeko": [
         {
           "id": "topicTree",
           "name": "板块列表"
@@ -94,60 +94,60 @@
     "viewsWelcome": [
       {
         "view": "topicTree",
-        "when": "config.nga.cookie == null || config.nga.cookie == ''",
-        "contents": "请先登录\n[登录](command:nga.login)"
+        "when": "config.neko.cookie == null || config.neko.cookie == ''",
+        "contents": "请先登录\n[登录](command:neko.login)"
       },
       {
         "view": "postTree",
-        "when": "config.nga.cookie == null || config.nga.cookie == ''",
-        "contents": "请先登录\n[登录](command:nga.login)"
+        "when": "config.neko.cookie == null || config.neko.cookie == ''",
+        "contents": "请先登录\n[登录](command:neko.login)"
       },
       {
         "view": "postTree",
-        "when": "config.nga.cookie != null && config.nga.cookie != ''",
+        "when": "config.neko.cookie != null && config.neko.cookie != ''",
         "contents": "请先选择板块"
       }
     ],
     "menus": {
       "commandPalette": [
         {
-          "command": "nga.topic.select",
+          "command": "neko.topic.select",
           "when": "false"
         },
         {
-          "command": "nga.post.select",
+          "command": "neko.post.select",
           "when": "false"
         },
         {
-          "command": "nga.open.browser",
+          "command": "neko.open.browser",
           "when": "false"
         }
       ],
       "view/title": [
         {
-          "command": "nga.topic.refresh",
+          "command": "neko.topic.refresh",
           "when": "view == topicTree",
           "group": "navigation"
         },
         {
-          "command": "nga.posts.refresh",
+          "command": "neko.posts.refresh",
           "when": "view == postTree",
           "group": "navigation"
         }
       ],
       "view/item/context": [
         {
-          "command": "nga.topic.select",
+          "command": "neko.topic.select",
           "when": "view == topicTree && viewItem == topicCategoryNode",
           "group": "navigation"
         },
         {
-          "command": "nga.post.select",
+          "command": "neko.post.select",
           "when": "view == postTree && viewItem == postItem",
           "group": "navigation"
         },
         {
-          "command": "nga.open.browser",
+          "command": "neko.open.browser",
           "when": "viewItem == topicCategoryNode || viewItem == postItem",
           "group": "inline"
         }

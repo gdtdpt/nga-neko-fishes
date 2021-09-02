@@ -6,8 +6,8 @@ import { showInfoMessage } from '../utils/commands';
 
 export class PostProvider implements TreeDataProvider<TreeItem> {
 
-  public static readonly REFRESH_COMMAND = 'nga.posts.refresh';
-  public static readonly POST_SELECT = 'nga.post.select';
+  public static readonly REFRESH_COMMAND = 'neko.posts.refresh';
+  public static readonly POST_SELECT = 'neko.post.select';
   private _onDidChangeTreeData: EventEmitter<TreeItem | null> = new EventEmitter<TreeItem | null>();
   readonly onDidChangeTreeData?: Event<TreeItem | null> = this._onDidChangeTreeData.event;
   private treeView: TreeView<TreeItem> | null = null;
@@ -56,7 +56,7 @@ export class PostProvider implements TreeDataProvider<TreeItem> {
   }
 
   private selctPost(post: PostItem) {
-    commands.executeCommand('nga.show.post', post.post);
+    commands.executeCommand('neko.show.post', post.post);
   }
 
   public refresh() {

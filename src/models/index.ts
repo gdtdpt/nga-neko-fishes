@@ -14,4 +14,4 @@ export type NGAResponseError = {
 
 export type NGAResponse<T> = T | NGAResponseError;
 
-export const NGA_LOGIN_COMMAND = 'nga.login';
+export const NGA_LOGIN_COMMAND = 'neko.login';

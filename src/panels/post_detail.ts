@@ -35,7 +35,7 @@ export async function createPostDetailPanel(post: Post) {
     posts.delete(tid);
   });
   panel.webview.onDidReceiveMessage(async ({ command, page }) => {
-    console.log(`test command: `, command, page);
+    page = parseInt(page);
     switch (command) {
       case 'prev':
         await buildPostDetailContent(panel, post, page - 1);
