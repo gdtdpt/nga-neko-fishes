@@ -25,7 +25,7 @@ This extension contributes the following settings:
 - [x] Login
 - [x] Topic list
 - [x] Post list
-- [ ] Post detail
+- [x] Post detail
 
 ## Release Notes
 
