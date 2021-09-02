@@ -10,16 +10,30 @@
     const pageLinks = document.querySelectorAll(`.page-item.page-btn .page-link`);
     return pageLinks[pageLinks.length - 1].textContent;
   };
+  const scrollToTop = () => {
+    window.scrollTo({
+      left: 0,
+      top: 0,
+      behavior: 'auto'
+    });
+  };
+  const postMessage = (command, page) => {
+    vscode.postMessage({
+      command,
+      page
+    });
+  };
+  const timeout = 1000;
   document.querySelector('#prev-btn').addEventListener('click', () => {
     const curPage = getCurrentPage();
     if (curPage === '1') {
       return;
     }
     if (vscode) {
-      vscode.postMessage({
-        command: 'prev',
-        page: curPage
-      });
+      scrollToTop();
+      setTimeout(() => {
+        postMessage('prev', curPage);
+      }, timeout);
     }
   });
   document.querySelector('#next-btn').addEventListener('click', () => {
@@ -30,10 +44,10 @@
       return;
     }
     if (vscode) {
-      vscode.postMessage({
-        command: 'next',
-        page: curPage
-      });
+      scrollToTop();
+      setTimeout(() => {
+        postMessage('next', curPage);
+      }, timeout);
     }
   });
   document.querySelectorAll('.page-item.page-btn .page-link').forEach(el => {
@@ -44,10 +58,10 @@
         return;
       }
       if (vscode) {
-        vscode.postMessage({
-          command: 'goto',
-          page
-        });
+        scrollToTop();
+        setTimeout(() => {
+          postMessage('goto', page);
+        }, timeout);
       }
     });
   });

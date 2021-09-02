@@ -19,12 +19,16 @@ export async function getHandlebarsWithHelpers(): Promise<typeof import('handleb
       return pageItems;
     });
 
-    // handlebars.registerHelper('dirname', (a: string, platform: PlatformOS = 'Linux') => {
-    //   return pathNormalize(
-    //     path.dirname(a),
-    //     platform
-    //   );
-    // });
+    handlebars.registerHelper('content', (content: string): string => {
+      return content
+        .replace('[quote]', '<blockquote>').replace('[/quote]', '</blockquote>')
+        .replace('[b]', '<b>').replace('[/b]', '</b></br>')
+        .replace(/\[pid=[\d,]+\]/g, '').replace('[/pid]', '')
+        .replace(/\[uid=\d+\]/g, '').replace('[/uid]', '')
+        .replace(/\[tid=\d+\]/g, '').replace('[/tid]', '')
+        ;
+    });
+
   }
   return handlebars;
 }

@@ -1,9 +1,9 @@
 {
   "name": "nga-neko-fishes",
   "displayName": "NGA Neko Fishes",
-  "publisher": "Richard",
-  "description": "relax",
-  "version": "0.0.1",
+  "publisher": "nga-neko-group-richard",
+  "description": "NGA Neko Group members want to mess around",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/gdtdpt/nga-neko-fishes"

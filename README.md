@@ -2,7 +2,7 @@
 
 > 感谢 DarrenIce 老哥的[插件](https://github.com/DarrenIce/NGA-MoFish)提供的灵感和素材
 
-[![Build Status](https://app.travis-ci.com/gdtdpt/nga-neko-fishes.svg?token=qqpCmGp2xhkehiXQfaQw&branch=master)](https://app.travis-ci.com/gdtdpt/nga-neko-fishes)
+[![Build Status](https://app.travis-ci.com/gdtdpt/nga-neko-fishes.png?token=qqpCmGp2xhkehiXQfaQw&branch=master)](https://app.travis-ci.com/gdtdpt/nga-neko-fishes)
 
 ## Snapshot
 

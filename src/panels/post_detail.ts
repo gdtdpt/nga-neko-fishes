@@ -24,7 +24,6 @@ export async function createPostDetailPanel(post: Post) {
     ViewColumn.One,
     Object.assign({
       enableScripts: true,
-      retainContextWhenHidden: true,
       enableFindWidget: true,
     }, normalWebviewOptions())
   );
@@ -73,7 +72,6 @@ async function buildPostDetailContent(panel: WebviewPanel, post: Post, pageNum =
   });
   const templateHtml = getRawTemplateSource("post_detail.html");
   const handlebars = await getHandlebarsWithHelpers();
-  console.log(`context: `, context);
   const page = handlebars.compile(templateHtml)({
     style, nonce, script, context, bootstrapJS, bootstrapStyle, cspSource: panel.webview.cspSource
   });
