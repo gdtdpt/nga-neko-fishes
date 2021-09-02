@@ -1,4 +1,4 @@
-# NGA 程序喵 Vscode 摸鱼插件
+# NGA 程序喵 Vscode 摸鱼插件
 
 > 感谢 DarrenIce 老哥的[插件](https://github.com/DarrenIce/NGA-MoFish)提供的灵感和素材
 

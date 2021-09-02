@@ -3,7 +3,7 @@
   "displayName": "NGA Neko Fishes",
   "publisher": "nga-neko-group-richard",
   "description": "NGA Neko Group members want to mess around",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/gdtdpt/nga-neko-fishes"
@@ -14,8 +14,10 @@
   "categories": [
     "Other"
   ],
+  "keywords": [
+    "nga"
+  ],
   "activationEvents": [
-    "onCommand:extension.helloWorld",
     "onCommand:neko.login",
     "onCommand:neko.show.post",
     "onView:topicTree"
@@ -24,10 +26,6 @@
   "icon": "resources/nga_logo.png",
   "contributes": {
     "commands": [
-      {
-        "command": "extension.helloWorld",
-        "title": "Hello World"
-      },
       {
         "command": "neko.login",
         "title": "设置NGA Cookie"

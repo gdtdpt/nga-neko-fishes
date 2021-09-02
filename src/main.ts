@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { checkCookie, fetchPostDetail } from './apis';
+import { checkCookie } from './apis';
 import { NGA_LOGIN_COMMAND, Post } from './models';
 import { LoginPanel } from './panels';
 import { createPostDetailPanel } from './panels/post_detail';
@@ -12,13 +12,6 @@ import { Persistence } from './utils';
 export function activate(context: vscode.ExtensionContext) {
   Persistence.init(context);
   checkCookie();
-  let disposable = vscode.commands.registerCommand('extension.helloWorld', () => {
-    vscode.window.setStatusBarMessage('testtest', 5000);
-    // fetchPostDetail(28038961).then(res => {
-    //   console.log(`test res: `, res);
-    // });
-  });
-  context.subscriptions.push(disposable);
   // posts
   const postProvider = new PostProvider();
   const postsView = vscode.window.createTreeView('postTree', { treeDataProvider: postProvider, showCollapseAll: true, canSelectMany: false });
