@@ -1,9 +1,6 @@
 # Change Log
 
-All notable changes to the "nga-neko-fishes" extension will be documented in this file.
+## [0.0.4]
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
-## [Unreleased]
-
-- Initial release
+- 适配帖子内容中的字体`颜色`、`大小`等特殊设置
+- 缩放帖子中的图片，帖子中的图片可以`点击`打开另一个 tab 展示
