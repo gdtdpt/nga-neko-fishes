@@ -21,11 +21,16 @@ export async function getHandlebarsWithHelpers(): Promise<typeof import('handleb
 
     handlebars.registerHelper('content', (content: string): string => {
       return content
-        .replace('[quote]', '<blockquote>').replace('[/quote]', '</blockquote>')
-        .replace('[b]', '<b>').replace('[/b]', '</b></br>')
+        .replace(/\[quote\]/g, '<blockquote>').replace(/\[\/quote\]/g, '</blockquote>')
+        .replace(/\[b\]/g, '<b>').replace(/\[\/b\]/g, '</b></br>')
         .replace(/\[pid=[\d,]+\]/g, '').replace('[/pid]', '')
         .replace(/\[uid=\d+\]/g, '').replace('[/uid]', '')
         .replace(/\[tid=\d+\]/g, '').replace('[/tid]', '')
+        .replace(/\[color=([^\].]+)\]/g, '<font color="$1">').replace(/\[\/color\]/g, '</font>')
+        .replace(/\[size=([^\].]+)\]/g, '<span style="font-size:$1">').replace(/\[\/size\]/g, '</span>')
+        .replace(/\[list\]/g, '').replace(/\[\/list\]/g, '')
+        .replace(/\[\*\]/g, '‣ ')
+        .replace(/<img/g, '<img class="image"')
         ;
     });
 

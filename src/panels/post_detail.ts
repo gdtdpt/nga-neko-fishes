@@ -1,4 +1,4 @@
-import { ViewColumn, WebviewPanel, window } from 'vscode';
+import { commands, ViewColumn, WebviewPanel, window } from 'vscode';
 import { getRawTemplateSource, normalWebviewOptions } from '.';
 import { fetchPostDetail } from '../apis';
 import { Post } from '../models';
@@ -33,17 +33,19 @@ export async function createPostDetailPanel(post: Post) {
     const tid = post.tid;
     posts.delete(tid);
   });
-  panel.webview.onDidReceiveMessage(async ({ command, page }) => {
-    page = parseInt(page);
-    switch (command) {
+  panel.webview.onDidReceiveMessage(async (params) => {
+    switch (params.command) {
       case 'prev':
-        await buildPostDetailContent(panel, post, page - 1);
+        await buildPostDetailContent(panel, post, parseInt(params.page) - 1);
         break;
       case 'next':
-        await buildPostDetailContent(panel, post, page + 1);
+        await buildPostDetailContent(panel, post, parseInt(params.page) + 1);
         break;
       case 'goto':
-        await buildPostDetailContent(panel, post, page);
+        await buildPostDetailContent(panel, post, parseInt(params.page));
+        break;
+      case 'image':
+        commands.executeCommand('neko.show.image', params.link);
         break;
       default:
         showErrorMessage('错误指令');
@@ -54,6 +56,7 @@ export async function createPostDetailPanel(post: Post) {
 }
 
 async function buildPostDetailContent(panel: WebviewPanel, post: Post, pageNum = 1) {
+  panel.webview.html = '';
   // get login page stylesheel path
   const bootstrapStyleSource = styles('bootstrap.min.css');
   const styleResource = styles('post_detail.css');

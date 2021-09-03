@@ -55,6 +55,15 @@ body {
   border-top: 0;
   border-radius: 0 0 5px 5px;
 }
+.threads .content .image {
+  background-color: #f0f6fc1a;
+  max-width: 7rem;
+  max-height: 7rem;
+  padding: 2px;
+  border-radius: 2px;
+  border: 1px solid #30363d;
+  cursor: pointer;
+}
 .threads .content blockquote {
   border: 1px solid #30363d;
   background-color: #f0f6fc1a;

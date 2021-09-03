@@ -20,6 +20,7 @@
   "activationEvents": [
     "onCommand:neko.login",
     "onCommand:neko.show.post",
+    "onCommand:neko.show.image",
     "onView:topicTree"
   ],
   "main": "./out/main.js",
@@ -56,6 +57,10 @@
       {
         "command": "neko.show.post",
         "title": "显示帖子"
+      },
+      {
+        "command": "neko.show.image",
+        "title": "显示图片"
       }
     ],
     "configuration": {
@@ -118,6 +123,14 @@
         },
         {
           "command": "neko.open.browser",
+          "when": "false"
+        },
+        {
+          "command": "neko.show.post",
+          "when": "false"
+        },
+        {
+          "command": "neko.show.image",
           "when": "false"
         }
       ],

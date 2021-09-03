@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import { checkCookie } from './apis';
 import { NGA_LOGIN_COMMAND, Post } from './models';
 import { LoginPanel } from './panels';
+import { createImageView } from './panels/image';
 import { createPostDetailPanel } from './panels/post_detail';
 import { PostProvider } from './providers/post_providers';
 import { TopicProvider } from './providers/topic_providers';
@@ -26,6 +27,12 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.commands.registerCommand('neko.show.post', (post: Post) => {
       createPostDetailPanel(post);
+    })
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand('neko.show.image', (link: string) => {
+      createImageView(link);
     })
   );
 
