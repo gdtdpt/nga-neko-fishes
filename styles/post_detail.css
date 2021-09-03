@@ -64,6 +64,9 @@ body {
   border: 1px solid #30363d;
   cursor: pointer;
 }
+.threads .content img.emoji {
+  background-color: white;
+}
 .threads .content blockquote {
   border: 1px solid #30363d;
   background-color: #f0f6fc1a;

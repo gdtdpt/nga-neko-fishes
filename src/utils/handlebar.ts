@@ -1,5 +1,4 @@
 
-
 let handlebars: typeof import('handlebars') | undefined;
 export async function getHandlebarsWithHelpers(): Promise<typeof import('handlebars')> {
   if (!handlebars) {
@@ -20,7 +19,7 @@ export async function getHandlebarsWithHelpers(): Promise<typeof import('handleb
     });
 
     handlebars.registerHelper('content', (content: string): string => {
-      return content
+      return emojiSupport(content
         .replace(/\[quote\]/g, '<blockquote>').replace(/\[\/quote\]/g, '</blockquote>')
         .replace(/\[b\]/g, '<b>').replace(/\[\/b\]/g, '</b></br>')
         .replace(/\[pid=[\d,]+\]/g, '').replace('[/pid]', '')
@@ -31,11 +30,15 @@ export async function getHandlebarsWithHelpers(): Promise<typeof import('handleb
         .replace(/\[list\]/g, '').replace(/\[\/list\]/g, '')
         .replace(/\[\*\]/g, '‣ ')
         .replace(/<img/g, '<img class="image"')
-        ;
+      );
     });
 
   }
   return handlebars;
+}
+
+function emojiSupport(content: string): string {
+  return content.replace(/\[s\:([a-z0-9]+)\:([^\].]+)\]/g, '<img class="emoji" data-type="$1" data-key="$2">');
 }
 
 function pageItemsWithDash(curPage: number, totalPages: number): string {

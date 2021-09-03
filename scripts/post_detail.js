@@ -1,11 +1,24 @@
 (function () {
-  console.log(`post detail script`);
   const vscode = acquireVsCodeApi();
 
   // format <a> tab
-  const aTags = document.querySelectorAll('.threads .content a:not(.page-link)');
-  aTags.forEach(aTag => {
+  document.querySelectorAll('.threads .content a:not(.page-link)').forEach(aTag => {
     aTag.textContent = `[${aTag.href}]`;
+  });
+
+  // format emoji
+  document.querySelectorAll('.threads .content img.emoji').forEach(el => {
+    const dataType = el.getAttribute('data-type') || 'def';
+    const dataKey = el.getAttribute('data-key');
+    if (dataType && dataKey) {
+      const typeMap = emoji[dataType];
+      for (const key of Object.keys(typeMap)) {
+        if (key === dataKey) {
+          el.src = `${emojiPrefix}${typeMap[key]}`;
+          break;
+        }
+      }
+    }
   });
 
   const getCurrentPage = () => {
@@ -21,7 +34,7 @@
     // window.scrollTo({
     //   left: 0,
     //   top: 0,
-    //   behavior: 'auto'
+    //   behavior': 'auto'
     // });
   };
   const postMessage = (command, page) => {
@@ -30,7 +43,7 @@
       page
     });
   };
-  const timeout = 1000;
+  // const timeout = 1000;
   document.querySelectorAll('.threads .content img.image').forEach(el => {
     el.addEventListener('click', event => {
       const link = event.target.src;
