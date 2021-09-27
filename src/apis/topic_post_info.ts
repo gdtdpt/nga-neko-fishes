@@ -51,8 +51,8 @@ function composePostDetail(response: PostDetailResponse): PostContext {
  * @param fid 板块的fid
  * @returns 返回NGA的原始数据Promise
  */
-const fetchPosts = (fid: number) => {
-  return requestJSON<PostResponse>(`https://ngabbs.com/thread.php?fid=${fid}&lite=js`);
+const fetchPosts = (fid: number, page = 1) => {
+  return requestJSON<PostResponse>(`https://ngabbs.com/thread.php?fid=${fid}&page=${page}&lite=js`);
 };
 
 /**
@@ -60,8 +60,8 @@ const fetchPosts = (fid: number) => {
  * @param fid 板块的fid
  * @returns 返回处理过的规范数据Promise
  */
-export const fetchPostList = (fid: number) => {
-  return fetchPosts(fid)
+export const fetchPostList = (fid: number, page = 1) => {
+  return fetchPosts(fid, page)
     .then(res => composePost(res as PostResponse));
 };
 

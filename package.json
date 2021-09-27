@@ -3,7 +3,7 @@
   "displayName": "NGA Neko Fishes",
   "publisher": "nga-neko-group-richard",
   "description": "NGA Neko Group members want to mess around",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "repository": {
     "type": "git",
     "url": "https://github.com/gdtdpt/nga-neko-fishes"
@@ -40,6 +40,16 @@
         "command": "neko.posts.refresh",
         "title": "刷新帖子列表",
         "icon": "$(refresh)"
+      },
+      {
+        "command": "neko.posts.prev",
+        "title": "上一页",
+        "icon": "$(arrow-up)"
+      },
+      {
+        "command": "neko.posts.next",
+        "title": "上一页",
+        "icon": "$(arrow-down)"
       },
       {
         "command": "neko.topic.select",
@@ -142,6 +152,16 @@
         },
         {
           "command": "neko.posts.refresh",
+          "when": "view == postTree",
+          "group": "navigation"
+        },
+        {
+          "command": "neko.posts.prev",
+          "when": "view == postTree",
+          "group": "navigation"
+        },
+        {
+          "command": "neko.posts.next",
           "when": "view == postTree",
           "group": "navigation"
         }

@@ -19,14 +19,3 @@
 This extension contributes the following settings:
 
 - `neko.cookie`: 登录后 NGA 的 Cookie，需要在插件中设置。
-
-## TODO
-
-- [x] Login
-- [x] Topic list
-- [x] Post list
-- [x] Post detail
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
