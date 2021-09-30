@@ -1,4 +1,4 @@
-import { commands, Event, EventEmitter, TreeDataProvider, TreeItem, TreeItemCollapsibleState } from 'vscode';
+import { commands, Event, EventEmitter, TreeDataProvider, TreeItem, TreeItemCollapsibleState, env, window } from 'vscode';
 import { fetchTopicTree } from '../apis';
 import { SubTopic, Topic, TopicCategoryContentItem } from '../models';
 import { Persistence } from '../utils';
@@ -12,6 +12,7 @@ export class TopicProvider implements TreeDataProvider<TreeItem> {
   public static readonly REFRESH_COMMAND = 'neko.topic.refresh';
   public static readonly TOPIC_SELECT = 'neko.topic.select';
   public static readonly OPEN_IN_BROWSER = 'neko.open.browser';
+  public static readonly SHARE_POST = 'neko.share.clipboard';
   private _onDidChangeTreeData: EventEmitter<TreeItem | null> = new EventEmitter<TreeItem | null>();
   readonly onDidChangeTreeData: Event<TreeItem | null> = this._onDidChangeTreeData.event;
   topics: TopicNode[] = [];
@@ -24,6 +25,7 @@ export class TopicProvider implements TreeDataProvider<TreeItem> {
       subscriptions.push(commands.registerCommand(TopicProvider.REFRESH_COMMAND, this.refresh, this));
       subscriptions.push(commands.registerCommand(TopicProvider.TOPIC_SELECT, this.selectTopic, this));
       subscriptions.push(commands.registerCommand(TopicProvider.OPEN_IN_BROWSER, this.openInBrowser, this));
+      subscriptions.push(commands.registerCommand(TopicProvider.SHARE_POST, this.shareToClipboard, this));
     }
   }
 
@@ -58,6 +60,14 @@ export class TopicProvider implements TreeDataProvider<TreeItem> {
   public refresh() {
     this.topics = [];
     this._onDidChangeTreeData.fire(null);
+  }
+
+  private shareToClipboard(node: PostItem) {
+    const { tid, subject } = node.post;
+    const postLink = `https://ngabbs.com/read.php?tid=${tid}`;
+    env.clipboard.writeText(`《${subject}》 ${postLink}`);
+    const statusBarDispose = window.setStatusBarMessage(`《${subject}》已复制`);
+    setTimeout(() => statusBarDispose.dispose(), 2000);
   }
 
   private openInBrowser(node: TopicCategoryNode | PostItem) {
