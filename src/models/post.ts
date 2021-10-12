@@ -33,21 +33,21 @@ export interface PostResponseDataGLOBAL {
 export interface PostResponseDataT {
   tid: number;
   fid: number;
-  quote_from: number;
-  quote_to: string;
-  icon: number;
-  topic_misc: string;
-  author: string;
-  authorid: number;
+  quote_from?: number;
+  quote_to?: string;
+  icon?: number;
+  topic_misc?: string;
+  author?: string;
+  authorid?: number;
   subject: string;
-  type: number;
-  postdate: number;
-  lastpost: number;
-  lastposter: string;
-  replies: number;
-  lastmodify: number;
-  recommend: number;
-  tpcurl: string;
+  type?: number;
+  postdate?: number;
+  lastpost?: number;
+  lastposter?: string;
+  replies?: number;
+  lastmodify?: number;
+  recommend?: number;
+  tpcurl?: string;
 }
 
 export interface PostResponseDataF {
