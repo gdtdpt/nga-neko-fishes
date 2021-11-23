@@ -62,7 +62,7 @@ async function buildPostDetailContent(panel: WebviewPanel, post: Post, pageNum =
   const styleResource = styles('post_detail.css');
   // get login page script path
   const bootstrapJS = scripts('bootstrap_bundle.js');
-  const script = scripts('post_detail.js');
+  // const script = scripts('post_detail.js');  不知道怎么回事加载报404，上面的bundle.js就没事，内容移动到html里了
   const style = panel.webview.asWebviewUri(styleResource);
   const bootstrapStyle = panel.webview.asWebviewUri(bootstrapStyleSource);
   const nonce = getNonce();
@@ -76,7 +76,7 @@ async function buildPostDetailContent(panel: WebviewPanel, post: Post, pageNum =
   const templateHtml = getRawTemplateSource("post_detail.html");
   const handlebars = await getHandlebarsWithHelpers();
   const page = handlebars.compile(templateHtml)({
-    style, nonce, script, context, bootstrapJS, bootstrapStyle, cspSource: panel.webview.cspSource
+    style, nonce, /*script,*/ context, bootstrapJS, bootstrapStyle, cspSource: panel.webview.cspSource
   });
   panel.webview.html = page;
 }
