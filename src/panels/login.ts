@@ -31,7 +31,7 @@ export class LoginPanel {
     // get login page stylesheel path
     const styleResource = styles('login_page.css');
     // get login page script path
-    const scriptSrc = scripts('login_page.js');
+    // const scriptSrc = scripts('login_page.js');
     const styleHref = this._panel.webview.asWebviewUri(styleResource);
     const helpImgSrc = this._panel.webview.asWebviewUri(loginHelpImg);
     const nonce = getNonce();
@@ -42,7 +42,7 @@ export class LoginPanel {
       nonce,
       helpImgSrc,
       styleHref,
-      scriptSrc,
+      // scriptSrc,
       cspSource: this._panel.webview.cspSource
     });
     this._panel.webview.html = page;

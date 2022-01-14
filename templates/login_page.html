@@ -27,7 +27,27 @@
   <div class="btn-region">
     <button id="saveBtn">摸！</button>
   </div>
-  <script nonce="{{nonce}}" src="{{scriptSrc}}"></script>
+  <script nonce="{{nonce}}">
+    (function () {
+      const saveBtn = document.querySelector("#saveBtn");
+      const cookieInput = document.querySelector("#cookies");
+      saveBtn.addEventListener("click", () => {
+        const cookie = cookieInput.value;
+        if (cookie) {
+          sendCookie(cookie.replace(/cookie: /i, ""));
+        }
+      });
+      const sendCookie = (cookie) => {
+        if (acquireVsCodeApi) {
+          const vscode = acquireVsCodeApi();
+          vscode.postMessage({
+            cookie,
+          });
+        }
+      };
+    })();
+  </script>
+  <!-- <script nonce="{{nonce}}" src="{{scriptSrc}}"></script> -->
 </body>
 
 </html>
