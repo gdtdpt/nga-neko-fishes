@@ -6,6 +6,11 @@ body {
   padding-top: 0.3rem;
   padding-bottom: 55px;
   position: relative;
+  font-size: var(--vscode-editor-font-size);
+}
+
+.subject {
+  font-size: calc(var(--vscode-editor-font-size) + 10px);
 }
 
 .threads {
