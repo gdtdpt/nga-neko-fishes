@@ -19,3 +19,5 @@
 This extension contributes the following settings:
 
 - `neko.cookie`: 登录后 NGA 的 Cookie，需要在插件中设置。
+- `neko.postFontSize`: 帖子内容页字体大小，默认为 vscode 的 `editor.fontSize`
+- `neko.titleFontSize`: 帖子标题页字体大小，默认为 vscode 的 `editor.fontSize` + `10px`

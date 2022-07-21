@@ -1,5 +1,9 @@
 # Change Log
 
+## [0.0.13]
+
+- 添加 `neko.postFontSize` 和 `neko.titleFontSize` 配置项，默认值为 vscode 的 `editor.fontSize`
+
 ## [0.0.12]
 
 - 更新帖子内容页字体大小根据 vscode 的`editor.fontSize`配置调整

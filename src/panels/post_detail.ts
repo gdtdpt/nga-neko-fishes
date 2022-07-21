@@ -1,4 +1,4 @@
-import { commands, ViewColumn, WebviewPanel, window } from 'vscode';
+import { commands, ViewColumn, WebviewPanel, window, workspace } from 'vscode';
 import { getRawTemplateSource, normalWebviewOptions } from '.';
 import { fetchPostDetail } from '../apis';
 import { Post } from '../models';
@@ -78,5 +78,9 @@ async function buildPostDetailContent(panel: WebviewPanel, post: Post, pageNum =
   const page = handlebars.compile(templateHtml)({
     style, nonce, /*script,*/ context, bootstrapJS, bootstrapStyle, cspSource: panel.webview.cspSource
   });
+  const config = workspace.getConfiguration('neko')
+  const postFontSize = config.get('postFontSize')
+  const titleFontSize = config.get('titleFontSize')
+  panel.webview.postMessage({postFontSize, titleFontSize});
   panel.webview.html = page;
 }
