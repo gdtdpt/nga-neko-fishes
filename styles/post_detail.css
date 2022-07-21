@@ -1,3 +1,8 @@
+:root {
+  --post-font-size: var(--vscode-editor-font-size);
+  --title-font-size: calc(var(--vscode-editor-font-size) + 10px);
+}
+
 body {
   background-color: transparent;
   color: var(--vscode-editor-foreground);
@@ -6,11 +11,11 @@ body {
   padding-top: 0.3rem;
   padding-bottom: 55px;
   position: relative;
-  font-size: var(--vscode-editor-font-size);
+  font-size: var(--post-font-size);
 }
 
 .subject {
-  font-size: calc(var(--vscode-editor-font-size) + 10px);
+  font-size: var(--title-font-size);
 }
 
 .threads {
@@ -28,26 +33,31 @@ body {
   justify-content: space-between;
   background-color: #6e76811a;
 }
+
 .threads .header .thread {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   justify-content: center;
 }
+
 .threads .header .thread .lou {
   margin-left: 5px;
 }
+
 .threads .header .author {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
 }
+
 .threads .header .author .img-wrapper img {
   border-radius: 50%;
   overflow: hidden;
   box-shadow: 0 0 0 1px #f0f6fc1a;
   background-color: #f0f6fc1a;
 }
+
 .threads .header .author .author-name {
   margin-left: 16px;
   font-size: 14px;
@@ -60,6 +70,7 @@ body {
   border-top: 0;
   border-radius: 0 0 5px 5px;
 }
+
 .threads .content .image {
   background-color: #f0f6fc1a;
   max-width: 7rem;
@@ -69,9 +80,11 @@ body {
   border: 1px solid #30363d;
   cursor: pointer;
 }
+
 .threads .content img.emoji {
   background-color: white;
 }
+
 .threads .content blockquote {
   border: 1px solid #30363d;
   background-color: #f0f6fc1a;
@@ -83,29 +96,35 @@ body {
   position: fixed;
   bottom: 0;
 }
+
 .pagination-region .pagination {
   margin: 1rem;
 }
+
 .pagination-region .pagination .dash {
   display: inline-block;
   padding: 0 10px;
   border: 1px solid #30363d;
   background-color: var(--vscode-editor-background);
 }
+
 .pagination-region ul.pagination li.page-item a.page-link {
   background-color: var(--vscode-editor-background);
   border: 1px solid #30363d;
   color: var(--vscode-editor-foreground);
 }
+
 .pagination-region ul.pagination li.page-item a.page-link.disabled {
   opacity: 0.1;
 }
+
 .pagination-region ul.pagination li.page-item.active a.page-link {
   background-color: var(--vscode-editor-background);
   border: 1px solid #30363d;
   color: var(--vscode-editor-foreground);
   filter: brightness(70%);
 }
+
 .pagination-region ul.pagination li.page-item a.page-link:focus {
   box-shadow: none;
 }

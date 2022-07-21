@@ -90,6 +90,16 @@
           "type": "string",
           "scope": "resource",
           "description": "登录NGA后获得的Cookie"
+        },
+        "neko.postFontSize": {
+          "type": "number",
+          "scope": "resource",
+          "description": "帖子内容字体大小"
+        },
+        "neko.titleFontSize": {
+          "type": "number",
+          "scope": "resource",
+          "description": "帖子标题字体大小"
         }
       }
     },

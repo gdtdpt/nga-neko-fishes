@@ -290,6 +290,19 @@
     (function () {
       const vscode = acquireVsCodeApi();
 
+      // 修改字体大小
+      const post = document.body;
+      const title = document.querySelector('.subject')
+      window.addEventListener('message', e => {
+        const message = e.data;
+        if (!message.postFontSize === 0) {
+          post.style.setProperty('--post-font-size', `${message.postFontSize}px`);
+        } else if (!message.titleFontSize === 0) {
+          title.style.setProperty('--title-font-size', `${message.titleFontSize}px`);
+        }
+      })
+
+
       // format <a> tab
       document.querySelectorAll('.threads .content a:not(.page-link)').forEach(aTag => {
         aTag.textContent = `[${aTag.href}]`;
