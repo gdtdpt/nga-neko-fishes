@@ -1,5 +1,9 @@
 # Change Log
 
+## [0.0.14]
+
+- 修改数据源地址为`https://nga.178.com`
+
 ## [0.0.13]
 
 - 添加 `neko.postFontSize` 和 `neko.titleFontSize` 配置项，默认值为 vscode 的 `editor.fontSize`

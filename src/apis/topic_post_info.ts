@@ -1,4 +1,4 @@
-import { requestPostDetail, requestJSON } from '.';
+import { requestPostDetail, requestJSON, HOST_URL } from '.';
 import {
   NGAResponse, ObjectArray, Post, PostResponse, SubTopic, Topic,
   TopicCategory, TopicCategoryContent, TopicCategoryContentItem, TopicResponse
@@ -10,11 +10,11 @@ import { PostContext, PostContextDetail, PostDetailResponse } from '../models/po
  * 因为水区必须登录访问，也用于测试cookie的可用性
  */
 export const checkCookie = () => {
-  return requestJSON<PostResponse>(`https://ngabbs.com/thread.php?fid=-7&lite=js`);
+  return requestJSON<PostResponse>(`${HOST_URL}/thread.php?fid=-7&lite=js`);
 };
 
 export const fetchPost = (tid: number, page = 1) => {
-  return requestPostDetail(`https://ngabbs.com/read.php?tid=${tid}&lite=js&page=${page}`);
+  return requestPostDetail(`${HOST_URL}/read.php?tid=${tid}&lite=js&page=${page}`);
 };
 
 export const fetchPostDetail = (tid: number, pageNum = 1): Promise<PostContext> => {
@@ -52,7 +52,7 @@ function composePostDetail(response: PostDetailResponse): PostContext {
  * @returns 返回NGA的原始数据Promise
  */
 const fetchPosts = (fid: number, page = 1) => {
-  return requestJSON<PostResponse>(`https://ngabbs.com/thread.php?fid=${fid}&page=${page}&lite=js`);
+  return requestJSON<PostResponse>(`${HOST_URL}/thread.php?fid=${fid}&page=${page}&lite=js`);
 };
 
 /**

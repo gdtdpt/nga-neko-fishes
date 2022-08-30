@@ -1,5 +1,5 @@
 import { commands, Event, EventEmitter, TreeDataProvider, TreeItem, TreeItemCollapsibleState, env, window } from 'vscode';
-import { fetchTopicTree } from '../apis';
+import { fetchTopicTree, HOST_URL } from '../apis';
 import { SubTopic, Topic, TopicCategoryContentItem } from '../models';
 import { Persistence } from '../utils';
 import { openPostPage, openTopicPage } from '../utils/env';
@@ -64,7 +64,7 @@ export class TopicProvider implements TreeDataProvider<TreeItem> {
 
   private shareToClipboard(node: PostItem) {
     const { tid, subject } = node.post;
-    const postLink = `https://ngabbs.com/read.php?tid=${tid}`;
+    const postLink = `${HOST_URL}/read.php?tid=${tid}`;
     env.clipboard.writeText(`《${subject}》 ${postLink}`);
     const statusBarDispose = window.setStatusBarMessage(`《${subject}》已复制`);
     setTimeout(() => statusBarDispose.dispose(), 2000);

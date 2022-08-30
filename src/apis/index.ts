@@ -7,6 +7,7 @@ import { commands } from 'vscode';
 import { NGAResponse, NGAResponseError, NGA_LOGIN_COMMAND } from '../models';
 import { PostDetailResponse } from '../models/post_detail';
 
+export const HOST_URL = 'https://nga.178.com';
 /**
  * 帖子数据太特殊了，只能这样处理
  */
