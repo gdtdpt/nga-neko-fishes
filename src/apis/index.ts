@@ -37,7 +37,8 @@ export function request<T>(url: string, fn: (some: string) => any): Promise<any>
   return new Promise<T>((resolve, reject) => {
     const requestClient = https.request(url, {
       headers: {
-        'Cookie': Persistence.cookie
+        'Cookie': Persistence.cookie,
+        'User-Agent': 'Nga_Official/90404'
       }
     }, res => {
       const chunks: Buffer[] = [];
